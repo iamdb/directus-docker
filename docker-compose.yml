@@ -40,7 +40,7 @@ services:
     image: "memcached:alpine"
     container_name: memcached
   nginx:
-    build: iamdb/nginx-directus-docker
+    image: iamdb/nginx-directus-docker
     container_name: nginx
     links:
       - fpm:fpm

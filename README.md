@@ -5,7 +5,7 @@
 * Utilizes [custom nginx config](https://github.com/h5bp/server-configs-nginx).
 * php-fpm 5.6, mariadb 10.1 and nginx 1.10
 
-The goal of this is to easily create a high-performing headless content API, with a GUI and CDN support. One that can be launched and configured easily so that you can focus on more important things. This is still a work in progress.
+The goal of this is to easily create a high-performing, headless content API, with a GUI and CDN support. One that can be launched and configured easily so that you can focus on more important things. This is still a work in progress.
 
 It assumes you're familiar with [docker-machine](https://docs.docker.com/machine/overview/) and [docker-compose](https://docs.docker.com/compose/overview/).
 
