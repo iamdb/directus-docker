@@ -7,6 +7,10 @@
 
 The goal of this is to easily create a high-performing, headless content API, with a GUI and CDN support. One that can be launched and configured easily so that you can focus on more important things. This is still a work in progress.
 
+The core of this is [Directus](http://getdirectus.com/).
+
+>Directus is a powerful and intuitive CMS for managing SQL databases with custom architectures. Built around a robust and extensible API, this decoupled content management framework is perfect for websites, apps, or multi-client projects.
+
 It assumes you're familiar with [docker-machine](https://docs.docker.com/machine/overview/) and [docker-compose](https://docs.docker.com/compose/overview/).
 
 The best way to use this is to mount a local storage volume or add S3 credentials to send files there.
