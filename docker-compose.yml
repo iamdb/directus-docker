@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+  mariadb:
+    image: mariadb:10.1
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: d1r3ctuS_db
+      MYSQL_DATABASE: directus
+    volumes:
+      - directus-db:/var/lib/mysql
+  fpm:
+    image: iamdb/fpm-directus-docker
+    container_name: fpm
+    links:
+      - mariadb:mariadb
+      - memcached:memcached
+    volumes:
+      - /var/www/html
+    environment:
+      DB_HOST: mariadb
+      DB_USER: root
+      DB_PASS: d1r3ctuS_db
+      DB_NAME: directus
+      ############
+      # OPTIONAL #
+      ############
+      ADMIN_EMAIL: admin@localhost
+      SITE_NAME: Directus
+      ADMIN_PASSWORD: password
+      DIRECTUS_VERSION: master
+      MEMCACHE_URL: memcached
+      # S3_KEY: <key>
+      # S3_SECRET: <secret>
+      # S3_REGION: us-east-1
+      # S3_BUCKET: <bucket>
+      # S3_ROOT: /uploads
+      #############################
+  memcached:
+    image: "memcached:alpine"
+    container_name: memcached
+  nginx:
+    build: iamdb/nginx-directus-docker
+    container_name: nginx
+    links:
+      - fpm:fpm
+    volumes_from:
+      - fpm
+    ports:
+      - "80:80"
+volumes:
+  directus-db:
+    driver: local
