@@ -1,0 +1,26 @@
+{$SITE_DOMAIN}:80 {
+    gzip
+    tls off
+    root /var/www/html
+    log stdout
+    errors /var/log/caddy.log
+
+
+    rewrite /api {
+        r .*
+        ext /
+        to /api/api.php?run_api_router=1&{query}
+    }
+
+   rewrite / {
+        r .*
+        ext /
+        to /index.php?{query}
+    }
+
+    # PHP-FPM
+    fastcgi / fpm:9000 php {
+      except /storage /media
+    }
+
+}

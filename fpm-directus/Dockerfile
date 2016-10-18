@@ -20,11 +20,13 @@ RUN apk --update --no-cache add \
     libmcrypt-dev \
     libpng-dev \
     imagemagick-dev &&\
-	docker-php-ext-install iconv mcrypt && \
+	docker-php-ext-install mcrypt && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install gd mysqli pdo pdo_mysql && \
-    pecl install imagick-beta && \
-    docker-php-ext-enable imagick
+    docker-php-ext-install gd curl fileinfo pdo pdo_mysql && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick && \
+    pecl install memcache && \
+    docker-php-ext-enable memcache
 
 # install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
@@ -44,9 +46,9 @@ RUN { \
 RUN chown -R www-data:www-data . && chmod g+s .
 
 # install directus and set permissions
-RUN su-exec www-data curl -sL "https://api.github.com/repos/directus/directus/tarball/master" | su-exec www-data tar xz -C . --strip-components=1 && \
-    su-exec www-data composer require aws/aws-sdk-php-laravel \
-   		graham-campbell/flysystem \
+RUN su-exec www-data curl -sL "https://github.com/directus/directus/archive/${DIRECTUS_VERSION}.tar.gz" | su-exec www-data tar xz -C . --strip-components=1 && \
+    su-exec www-data composer require aws/aws-sdk-php \
+   		league/flysystem \
     	league/flysystem-aws-s3-v3 && \
     su-exec www-data composer install --no-dev --no-progress --prefer-dist && \
     su-exec www-data mkdir logs

@@ -28,7 +28,7 @@ services:
       ADMIN_EMAIL: admin@localhost
       SITE_NAME: Directus
       ADMIN_PASSWORD: password
-      DIRECTUS_VERSION: master
+      DIRECTUS_VERSION: 6.3.4
       MEMCACHE_URL: memcached
       # S3_KEY: <key>
       # S3_SECRET: <secret>
@@ -39,8 +39,8 @@ services:
   memcached:
     image: "memcached:alpine"
     container_name: memcached
-  nginx:
-    image: iamdb/nginx-directus-docker
+  caddy:
+    image: iamdb/caddy-directus-docker
     container_name: nginx
     links:
       - fpm:fpm

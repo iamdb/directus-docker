@@ -2,7 +2,7 @@ FROM nginx:1.10-alpine
 
 RUN addgroup -g 82 www-data && adduser -S -u 82 -G www-data www-data
 
-RUN apk --update --no-cache add git 
+RUN apk --update --no-cache add git
 
 # Install custom nginx config
 RUN mv /etc/nginx /etc/nginx-og && \
